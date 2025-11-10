@@ -88,7 +88,5 @@ The application should enable users to generate language flashcards by providing
 *   The frontend should be runnable with `npm install` and `npm start`.
 *   The backend should be runnable with a Python package manager like `uv` and `uvicorn main:app --reload`.
 *   The project should be structured with a root directory containing `frontend/` and `backend/` subdirectories.
-
-## Dependency Management
-- **Frontend:** Use npm for all package management (never edit package.json manually)
-- **Backend:** Use pip/uv for Python dependencies (never edit requirements.txt manually, I recommend using `uv` for dependency management)
+*   Frontend: Use npm for all package management (never edit package.json manually)
+*   Backend: Use pip/uv for Python dependencies (never edit requirements.txt manually, I recommend using `uv` for dependency management)
