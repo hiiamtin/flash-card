@@ -5,10 +5,18 @@ const CameraComponent = ({ onCapture, onError }) => {
   const camera = useRef(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [facingMode, setFacingMode] = useState('environment'); // 'user' for front, 'environment' for back
+  const [numberOfCameras, setNumberOfCameras] = useState(0);
+
+  // Log when number of cameras changes
+  React.useEffect(() => {
+    console.log('Number of cameras detected:', numberOfCameras);
+  }, [numberOfCameras]);
 
   const startCamera = () => {
     setIsCameraActive(true);
     setCapturedImage(null);
+    console.log('Camera started, waiting for camera detection...');
   };
 
   const stopCamera = () => {
@@ -54,6 +62,24 @@ const CameraComponent = ({ onCapture, onError }) => {
     setIsCameraActive(true);
   };
 
+  const switchCamera = () => {
+    if (camera.current) {
+      try {
+        const result = camera.current.switchCamera();
+        console.log('Switch camera result:', result);
+        // Toggle facing mode state
+        setFacingMode(prevMode => {
+          const newMode = prevMode === 'user' ? 'environment' : 'user';
+          console.log('Switching from', prevMode, 'to', newMode);
+          return newMode;
+        });
+      } catch (error) {
+        console.error('Error switching camera:', error);
+        alert('Cannot switch camera. Your device may only have one camera or camera switching is not supported.');
+      }
+    }
+  };
+
   return (
     <div>
       {!isCameraActive && !capturedImage && (
@@ -70,6 +96,8 @@ const CameraComponent = ({ onCapture, onError }) => {
             <Camera
               ref={camera}
               aspectRatio={4 / 3}
+              facingMode={facingMode}
+              numberOfCamerasCallback={setNumberOfCameras}
               errorMessages={{
                 noCameraAccessible: 'No camera device accessible. Please connect your camera or try a different browser.',
                 permissionDenied: 'Permission denied. Please refresh and give camera permission.',
@@ -81,6 +109,9 @@ const CameraComponent = ({ onCapture, onError }) => {
           <div className="camera-controls">
             <button className="btn btn-secondary" onClick={stopCamera}>
               Cancel
+            </button>
+            <button className="btn btn-secondary" onClick={switchCamera}>
+              🔄 Switch Camera
             </button>
             <button className="btn btn-primary" onClick={capturePhoto}>
               📸 Capture

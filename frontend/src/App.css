@@ -150,6 +150,7 @@ body {
   gap: 10px;
   justify-content: center;
   margin-top: 15px;
+  flex-wrap: wrap;
 }
 
 .btn {
