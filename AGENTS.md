@@ -9,6 +9,7 @@ The application should enable users to generate language flashcards by providing
     *   **Text Input:** A user types a word or phrase. The backend sends this to the Gemini API to get the translation and an image description.
     *   **Image Upload:** A user uploads an image file (e.g., PNG, JPG). The backend sends the image to the Gemini Vision API(gemini-2.5-flash) to identify the object/scene and generate a descriptive word/phrase, its translation, and a description.
     *   **Camera Capture:** A user captures a photo using their device's camera. The captured image is processed the same way as an uploaded image.
+        *   **Camera Switching:** Users can toggle between front/back cameras on mobile devices.
 3.  **AI Integration (Google Gemini):**
     *   Use the Gemini API for all AI-powered generation tasks.
     *   For text input, generate a translation text.
@@ -87,3 +88,7 @@ The application should enable users to generate language flashcards by providing
 *   The frontend should be runnable with `npm install` and `npm start`.
 *   The backend should be runnable with a Python package manager like `uv` and `uvicorn main:app --reload`.
 *   The project should be structured with a root directory containing `frontend/` and `backend/` subdirectories.
+
+## Dependency Management
+- **Frontend:** Use npm for all package management (never edit package.json manually)
+- **Backend:** Use pip/uv for Python dependencies (never edit requirements.txt manually, I recommend using `uv` for dependency management)
