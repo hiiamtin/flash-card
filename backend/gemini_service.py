@@ -52,6 +52,8 @@ Input: "{text}"
 Please respond in the following format:
 Translation: [translation here]
 Description: [brief visual description here]
+
+Note: The translation does not need to include pronunciation.
 """
         
         try:
