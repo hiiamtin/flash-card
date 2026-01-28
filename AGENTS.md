@@ -90,3 +90,99 @@ The application should enable users to generate language flashcards by providing
 *   The project should be structured with a root directory containing `frontend/` and `backend/` subdirectories.
 *   Frontend: Use npm for all package management (never edit package.json manually)
 *   Backend: Use pip/uv for Python dependencies (never edit requirements.txt manually, I recommend using `uv` for dependency management)
+
+## Setup Commands
+
+### Backend Setup
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Create a virtual environment (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install dependencies using uv (recommended):
+   ```bash
+   uv pip install -r requirements.txt
+   ```
+   Or using pip:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Create a `.env` file in the backend directory with your environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit `.env` and add your credentials:
+   ```
+   MONGO_URI=mongodb://localhost:27017
+   DATABASE_NAME=flashcard_db
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+5. Start the backend server:
+   ```bash
+   uvicorn main:app --reload
+   ```
+   The backend will be available at `http://localhost:8000`
+
+### Frontend Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+   The frontend will be available at `http://localhost:3000`
+
+### MongoDB Setup (Optional)
+If you want to use MongoDB instead of the in-memory fallback:
+
+1. Install MongoDB:
+   - **macOS:** `brew install mongodb-community`
+   - **Ubuntu:** `sudo apt-get install mongodb`
+   - **Windows:** Download from [MongoDB官网](https://www.mongodb.com/try/download/community)
+
+2. Start MongoDB service:
+   - **macOS:** `brew services start mongodb-community`
+   - **Linux:** `sudo systemctl start mongodb`
+   - **Windows:** Run MongoDB as a service
+
+3. Verify MongoDB is running:
+   ```bash
+   mongosh
+   ```
+   Or:
+   ```bash
+   mongo
+   ```
+
+### Running the Application
+1. Start MongoDB (if using MongoDB database)
+2. Start the backend server (in one terminal)
+3. Start the frontend server (in another terminal)
+4. Open `http://localhost:3000` in your browser
+
+### Environment Variables
+Make sure to set the following environment variables in the backend `.env` file:
+- `MONGO_URI`: MongoDB connection string (e.g., `mongodb://localhost:27017`)
+- `DATABASE_NAME`: Name of the database to use
+- `GEMINI_API_KEY`: Your Google Gemini API key
+
+### Troubleshooting
+- If MongoDB connection fails, the application will automatically fall back to in-memory storage
+- Make sure the backend is running before starting the frontend
+- Check that the API proxy in `frontend/package.json` is correctly configured to `http://localhost:8000`
